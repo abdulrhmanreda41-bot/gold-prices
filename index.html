@@ -3,210 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسعار الذهب لايف | النسخة الاحترافية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>منصة أسعار الذهب | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* الألوان الأساسية - Emerald & Gold */
-            --bg-deep: #040906;
-            --bg-radial: #0a1f12;
-            --glass-bg: rgba(14, 33, 21, 0.45);
-            --glass-border: rgba(212, 175, 55, 0.15);
-            --gold-primary: #d4af37;
-            --gold-light: #fbe69b;
-            --text-main: #f0f5f1;
-            --text-muted: #8ba696;
-            --accent-green: #2ecc71;
-            --accent-red: #e74c3c;
-            --shadow-subtle: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --bg-base: #020604;
+            --bg-surface: #0a140d;
+            --glass-bg: rgba(14, 28, 18, 0.6);
+            --glass-border: rgba(212, 175, 55, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.03);
+            --gold-primary: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dark: #997A15;
+            --text-primary: #F8FAF9;
+            --text-secondary: #8BA696;
+            --success-color: #00E676;
+            --danger-color: #FF3D00;
+            --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            --inner-glow: inset 0 1px 0 rgba(212, 175, 55, 0.2);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: radial-gradient(circle at 50% 0%, var(--bg-radial) 0%, var(--bg-deep) 100%);
-            background-attachment: fixed;
-            color: var(--text-main);
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 230, 118, 0.02), transparent 25%);
+            color: var(--text-primary);
             font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            min-height: 100vh;
-            padding: 15px;
+            padding: 20px 15px;
         }
 
-        .app-container {
+        .dashboard {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 20px;
         }
 
-        /* --- Header & Controls --- */
-        .header {
+        /* --- Top Navigation / Header --- */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 0 5px;
+            padding: 0 10px 10px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 5px;
         }
-        
-        .title-wrapper h1 {
-            font-size: 1.4rem;
-            color: var(--gold-primary);
-            font-weight: 800;
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--gold-light), var(--gold-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
         }
-        
-        .last-update {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: -3px;
-        }
 
-        .refresh-btn {
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--glass-border);
-            color: var(--gold-primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .system-status {
             display: flex;
-            justify-content: center;
             align-items: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-
-        .refresh-btn:hover {
-            background: rgba(212, 175, 55, 0.2);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .refresh-btn.spinning {
-            animation: spin 1s linear infinite;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        /* --- Glass Cards --- */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: rgba(0,0,0,0.3);
+            padding: 4px 10px;
             border-radius: 20px;
-            padding: 18px;
-            box-shadow: var(--shadow-subtle);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+
+        .status-dot.live {
+            background-color: var(--success-color);
+            animation: pulse-green 2s infinite;
+        }
+        
+        .status-dot.error {
+            background-color: var(--danger-color);
+            animation: pulse-red 2s infinite;
+        }
+
+        /* --- Premium Cards --- */
+        .premium-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow), var(--inner-glow);
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s ease;
-        }
-
-        /* لمسة لمعان علوية للبطاقة */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
         }
 
         /* --- Main 21 Karat Card --- */
-        .card-main {
-            text-align: center;
-            background: linear-gradient(145deg, rgba(20, 45, 28, 0.6) 0%, rgba(10, 24, 15, 0.6) 100%);
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-        
-        .karat-badge {
-            background: linear-gradient(45deg, var(--gold-primary), #e6c55c);
-            color: #000;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: inline-block;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        .card-21 {
+            background: linear-gradient(165deg, rgba(20, 40, 25, 0.8) 0%, rgba(5, 12, 8, 0.9) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.25);
         }
 
-        .price-grid {
+        .card-header {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .karat-badge {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #000;
+            padding: 6px 20px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-refresh {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-dark);
+            color: var(--gold-light);
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-refresh:hover {
+            background: var(--gold-primary);
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        .btn-refresh.spinning svg { animation: spin 0.8s linear infinite; }
+
+        .price-layout {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .price-col {
+        .price-block {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 4px;
+            flex: 1;
         }
-
-        .price-divider {
-            width: 1px;
-            height: 40px;
-            background: var(--glass-border);
-        }
+        
+        .price-block.sell-block { align-items: flex-start; }
+        .price-block.buy-block { align-items: flex-end; }
 
         .price-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .price-val {
+            font-size: 2.2rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .buy-block .price-val { color: var(--gold-light); text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .sell-block .price-val { color: var(--text-primary); }
+
+        .currency {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             font-weight: 600;
+            margin-right: 4px;
         }
 
-        .price-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums; /* لموازاة الأرقام */
+        .divider-vertical {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--glass-border), transparent);
         }
 
-        .price-value.buy { color: var(--gold-primary); }
-        .price-value.sell { color: var(--text-main); }
-
-        /* --- Secondary Grid (24, 18, 14) --- */
-        .karats-grid {
+        /* --- Grid for 24, 18, 14 --- */
+        .karat-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
-        .karat-mini {
-            padding: 12px;
-            text-align: center;
+        .mini-card {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid var(--glass-highlight);
         }
 
-        .karat-mini .title {
-            color: var(--gold-light);
+        .mini-title {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            width: 100%;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
         }
 
-        .karat-mini .mini-row {
+        .mini-row {
+            width: 100%;
             display: flex;
             justify-content: space-between;
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-variant-numeric: tabular-nums;
-        }
-        
-        .karat-mini .mini-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: normal;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
-        /* --- Info Cards (Coin, Gap, etc) --- */
+        .mini-row:last-child { margin-bottom: 0; }
+
+        .m-label { font-size: 0.75rem; color: var(--text-secondary); }
+        .m-val { font-size: 1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .m-val.buy { color: var(--gold-primary); }
+
+        /* --- Info Grid (Coin, Gap, etc.) --- */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -214,292 +258,251 @@
         }
 
         .info-card {
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 15px;
+            gap: 8px;
+            border-left: 2px solid transparent;
+            transition: border-color 0.3s ease;
         }
+        
+        .info-card:hover { border-left-color: var(--gold-primary); }
 
-        .info-card.full-width {
+        .info-card.full {
             grid-column: span 2;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), transparent);
         }
 
-        .info-title {
+        .i-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
+            color: var(--text-secondary);
+            font-weight: 700;
         }
 
-        .info-value {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--gold-light);
+        .i-val {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--text-primary);
         }
 
-        .gap-value { color: var(--accent-red); font-size: 1.4rem;}
+        .gap-alert { color: var(--danger-color); }
         
-        /* --- Animations & Effects --- */
+        /* --- Animations --- */
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 230, 118, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+        }
+        
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(255, 61, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
+        }
+
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* تأثير الوميض عند التحديث */
-        @keyframes flashUpdate {
-            0% { text-shadow: 0 0 15px var(--gold-primary); transform: scale(1.05); }
-            100% { text-shadow: none; transform: scale(1); }
+        .data-flash {
+            animation: dataUpdate 0.5s ease-out;
         }
-        .flash {
-            animation: flashUpdate 0.8s ease-out;
-        }
-
-        /* Loading Skeleton */
-        .skeleton-text {
-            position: relative;
-            overflow: hidden;
-            color: transparent !important;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.05);
-            min-width: 40px;
-            display: inline-block;
+        
+        @keyframes dataUpdate {
+            0% { color: var(--success-color); transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .skeleton-text::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
-            transform: translateX(-100%);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            100% { transform: translateX(100%); }
-        }
+        /* SVG Styles */
+        svg { width: 16px; height: 16px; fill: currentColor; }
+        .gold-icon { fill: var(--gold-primary); }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="dashboard">
         
-        <header class="header">
-            <div class="title-wrapper">
-                <h1>أسعار الذهب</h1>
-                <div class="last-update" id="last-update-time">آخر تحديث: بانتظار الاتصال...</div>
+        <div class="navbar">
+            <div class="brand">
+                <svg viewBox="0 0 24 24" class="gold-icon" style="width: 24px; height: 24px;"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                <span class="brand-title">مؤشرات الذهب</span>
             </div>
-            <button class="refresh-btn" id="refresh-btn" onclick="fetchPrices()" title="تحديث الأسعار">
-                ↻
-            </button>
-        </header>
+            <div class="system-status" id="sys-status">
+                <span class="status-dot" id="status-indicator"></span>
+                <span id="status-text">بانتظار الاتصال</span>
+            </div>
+        </div>
 
-        <div class="glass-card card-main">
-            <div class="karat-badge">عيار 21</div>
-            <div class="price-grid">
-                <div class="price-col">
-                    <span class="price-label">شراء (لك)</span>
-                    <span class="price-value buy skeleton-text" id="buy-21" data-val="0">----</span>
+        <div class="premium-card card-21">
+            <div class="card-header">
+                <div class="karat-badge">
+                    <svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 12H4V7h16v10z"/><path d="M11 9h2v6h-2z"/></svg>
+                    عيار 21
                 </div>
-                <div class="price-divider"></div>
-                <div class="price-col">
-                    <span class="price-label">بيع (للصاغة)</span>
-                    <span class="price-value sell skeleton-text" id="sell-21" data-val="0">----</span>
+                <button class="btn-refresh" id="btn-refresh" onclick="fetchMarketData()">
+                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                </button>
+            </div>
+
+            <div class="price-layout">
+                <div class="price-block sell-block">
+                    <span class="price-label">بيع <svg viewBox="0 0 24 24"><path d="M16 18l2.29-2.29-4.88-4.88-4 4L2 9.41 3.41 8l6 6 4-4 6.3 6.29L22 14v4h-6z"/></svg></span>
+                    <div class="price-val" id="val-sell-21">--<span class="currency">ج</span></div>
+                </div>
+                
+                <div class="divider-vertical"></div>
+                
+                <div class="price-block buy-block">
+                    <span class="price-label">شراء <svg viewBox="0 0 24 24" style="fill: var(--gold-primary)"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 14.59 3.41 16l6-6 4 4 6.3-6.29L22 10V6h-6z"/></svg></span>
+                    <div class="price-val" id="val-buy-21">--<span class="currency">ج</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="karats-grid">
-            <div class="glass-card karat-mini">
-                <div class="title">عيار 24</div>
-                <div class="mini-row">
-                    <span class="mini-label">شراء</span>
-                    <span class="buy skeleton-text" id="buy-24" data-val="0">--</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">بيع</span>
-                    <span class="sell skeleton-text" id="sell-24" data-val="0">--</span>
-                </div>
+        <div class="karat-grid">
+            <div class="premium-card mini-card">
+                <div class="mini-title">عيار 24</div>
+                <div class="mini-row"><span class="m-label">شراء</span><span class="m-val buy" id="val-buy-24">--</span></div>
+                <div class="mini-row"><span class="m-label">بيع</span><span class="m-val" id="val-sell-24">--</span></div>
             </div>
-            
-            <div class="glass-card karat-mini">
-                <div class="title">عيار 18</div>
-                <div class="mini-row">
-                    <span class="mini-label">شراء</span>
-                    <span class="buy skeleton-text" id="buy-18" data-val="0">--</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">بيع</span>
-                    <span class="sell skeleton-text" id="sell-18" data-val="0">--</span>
-                </div>
+            <div class="premium-card mini-card">
+                <div class="mini-title">عيار 18</div>
+                <div class="mini-row"><span class="m-label">شراء</span><span class="m-val buy" id="val-buy-18">--</span></div>
+                <div class="mini-row"><span class="m-label">بيع</span><span class="m-val" id="val-sell-18">--</span></div>
             </div>
-
-            <div class="glass-card karat-mini">
-                <div class="title">عيار 14</div>
-                <div class="mini-row">
-                    <span class="mini-label">شراء</span>
-                    <span class="buy skeleton-text" id="buy-14" data-val="0">--</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">بيع</span>
-                    <span class="sell skeleton-text" id="sell-14" data-val="0">--</span>
-                </div>
+            <div class="premium-card mini-card">
+                <div class="mini-title">عيار 14</div>
+                <div class="mini-row"><span class="m-label">شراء</span><span class="m-val buy" id="val-buy-14">--</span></div>
+                <div class="mini-row"><span class="m-label">بيع</span><span class="m-val" id="val-sell-14">--</span></div>
             </div>
-        </div>
-
-        <div class="glass-card info-card full-width">
-            <div class="info-title" style="margin:0; font-size: 1rem; color: var(--gold-primary); font-weight: bold;">سعر الجنيه الذهب</div>
-            <div class="info-value skeleton-text" id="gold-coin" data-val="0" style="font-size: 1.5rem;">----</div>
         </div>
 
         <div class="info-grid">
-            <div class="glass-card info-card">
-                <div class="info-title">الفجوة السعرية (21)</div>
-                <div class="info-value gap-value skeleton-text" id="price-gap" data-val="0">--</div>
-            </div>
-            
-            <div class="glass-card info-card">
-                <div class="info-title">دولار الصاغة (تقريبي)</div>
-                <div class="info-value skeleton-text" id="sagha-dollar" data-val="0" style="color: var(--text-main);">--</div>
+            <div class="premium-card info-card full">
+                <div class="i-head">
+                    <svg viewBox="0 0 24 24" class="gold-icon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.3.9 2.3 1.78 0 .96-.86 1.54-2.22 1.54-1.3 0-2.07-.63-2.17-1.68H8.03c.12 1.76 1.33 2.8 2.87 3.19V19h2.4v-1.69c1.61-.31 2.84-1.35 2.84-2.97 0-2.01-1.65-2.78-3.83-3.2z"/></svg>
+                    سعر الجنيه الذهب
+                </div>
+                <div class="i-val" id="val-coin">-- <span class="currency">ج</span></div>
             </div>
 
-            <div class="glass-card info-card full-width" style="padding: 12px 15px;">
-                <div class="info-title" style="margin:0;">السعر العالمي (أونصة)</div>
-                <div class="info-value" id="global-ounce">2,350 $</div> </div>
+            <div class="premium-card info-card full">
+                <div class="i-head">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+                    السعر العالمي (أونصة)
+                </div>
+                <div class="i-val" style="color: var(--gold-light);" id="val-ounce">2,350 <span class="currency" style="color: var(--gold-primary);">$</span></div>
+            </div>
+
+            <div class="premium-card info-card">
+                <div class="i-head">الفجوة السعرية</div>
+                <div class="i-val gap-alert" id="val-gap">--</div>
+            </div>
+
+            <div class="premium-card info-card">
+                <div class="i-head">دولار الصاغة</div>
+                <div class="i-val" id="val-dollar">--</div>
+            </div>
         </div>
 
     </div>
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbxHEks-97V2ca9y3GroLBkuq6SDXUpENiHyCk88_fhHY16gGYnsBg6Bc0YLfKxYOW8bQw/exec";
-        const GLOBAL_OUNCE_PRICE = 2350; // سعر افتراضي للأونصة حتى يتم ربطه بمصدر حي
+        const GLOBAL_OUNCE = 2350; // سيتم تغييره لاحقاً إذا ربطته بالشيت
 
-        // 1. دالة الحماية ضد الـ NaN (تضمن إرجاع رقم صحيح دائماً)
-        function safeNum(val) {
-            const num = parseFloat(val);
-            if (isNaN(num) || !isFinite(num)) return 0;
-            return num;
-        }
-
-        // 2. دالة عداد الأرقام المتحرك (Animation Counter)
-        function animateValue(element, start, end, duration) {
-            if (start === end) return;
-            
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                
-                // Ease Out effect
-                const easeOut = 1 - Math.pow(1 - progress, 3); 
-                const currentVal = (progress === 1) ? end : start + (end - start) * easeOut;
-                
-                // تحديد عدد الخانات العشرية بناءً على الرقم
-                const decimals = (end % 1 !== 0 && end < 100) ? 2 : 0; 
-                element.innerText = currentVal.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-                
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // 3. دالة تحديث العنصر الشاملة (تزيل الـ Skeleton وتنفذ الوميض والعداد)
-        function updateElement(id, newValue) {
+        // دالة تحديث الواجهة مع تأثيرات الـ Data Flash
+        function setNode(id, val, format = true) {
             const el = document.getElementById(id);
-            if (!el) return;
-
-            const safeNewValue = safeNum(newValue);
-            const oldValue = safeNum(el.getAttribute('data-val'));
-
-            // إزالة هيكل التحميل إن وُجد
-            if(el.classList.contains('skeleton-text')) {
-                el.classList.remove('skeleton-text');
-            }
-
-            if (safeNewValue === 0) {
-                el.innerText = "--";
-                return;
-            }
-
-            if (safeNewValue !== oldValue) {
-                // تفعيل تأثير الوميض
-                el.classList.remove('flash');
-                void el.offsetWidth; // Trigger Reflow
-                el.classList.add('flash');
-
-                // تحريك الأرقام
-                animateValue(el, oldValue, safeNewValue, 1200);
+            if(!el) return;
+            
+            const oldVal = el.getAttribute('data-v');
+            const newVal = format ? val.toLocaleString('en-US') : val;
+            
+            if (oldVal !== newVal) {
+                // Flash animation trigger
+                el.classList.remove('data-flash');
+                void el.offsetWidth; 
+                el.classList.add('data-flash');
                 
-                // حفظ القيمة الجديدة
-                el.setAttribute('data-val', safeNewValue);
+                // For main values, keep the currency span
+                if(id === 'val-sell-21' || id === 'val-buy-21' || id === 'val-coin') {
+                    el.innerHTML = `${newVal} <span class="currency">ج</span>`;
+                } else {
+                    el.innerText = newVal;
+                }
+                el.setAttribute('data-v', newVal);
             }
         }
 
-        // 4. الدالة الرئيسية لجلب البيانات وحسابها
-        async function fetchPrices() {
-            const btn = document.getElementById('refresh-btn');
-            const updateTimeEl = document.getElementById('last-update-time');
+        function setStatus(type) {
+            const dot = document.getElementById('status-indicator');
+            const txt = document.getElementById('status-text');
+            dot.className = 'status-dot';
             
-            // تشغيل دوران زر التحديث
+            if (type === 'live') {
+                dot.classList.add('live');
+                txt.innerText = 'متصل ومُحدث';
+                txt.style.color = 'var(--success-color)';
+            } else if (type === 'error') {
+                dot.classList.add('error');
+                txt.innerText = 'فشل الاتصال بالشيت';
+                txt.style.color = 'var(--danger-color)';
+            } else {
+                txt.innerText = 'جاري جلب البيانات...';
+                txt.style.color = 'var(--text-secondary)';
+            }
+        }
+
+        async function fetchMarketData() {
+            const btn = document.getElementById('btn-refresh');
             btn.classList.add('spinning');
-            updateTimeEl.innerText = "جاري التحديث...";
+            setStatus('loading');
 
             try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
+                const res = await fetch(API_URL);
+                if (!res.ok) throw new Error('Network Issue');
+                const data = await res.json();
+
+                const buy21 = parseFloat(data["شراء 21"]);
+                const sell21 = parseFloat(data["بيع 21"]);
+
+                if (isNaN(buy21) || isNaN(sell21)) throw new Error('Data Empty');
+
+                // 21k
+                setNode('val-buy-21', buy21);
+                setNode('val-sell-21', sell21);
+
+                // Calculations
+                setNode('val-buy-24', Math.round(buy21 * (24/21)));
+                setNode('val-sell-24', Math.round(sell21 * (24/21)));
+                setNode('val-buy-18', Math.round(buy21 * (18/21)));
+                setNode('val-sell-18', Math.round(sell21 * (18/21)));
+                setNode('val-buy-14', Math.round(buy21 * (14/21)));
+                setNode('val-sell-14', Math.round(sell21 * (14/21)));
                 
-                // استخراج قيم 21 بأمان
-                const buy21 = safeNum(data["شراء 21"]);
-                const sell21 = safeNum(data["بيع 21"]);
+                // Coin & Indicators
+                setNode('val-coin', Math.round(sell21 * 8));
+                setNode('val-gap', (sell21 - buy21).toFixed(2), false);
 
-                if(buy21 === 0 || sell21 === 0) throw new Error("بيانات غير صالحة من المصدر");
+                const saghaDollar = (sell21 * (24/21)) / (GLOBAL_OUNCE / 31.103);
+                setNode('val-dollar', saghaDollar.toFixed(2), false);
 
-                // تحديث عيار 21
-                updateElement('buy-21', buy21);
-                updateElement('sell-21', sell21);
-
-                // حساب وتحديث باقي العيارات (نفس نظام الصاغة)
-                updateElement('buy-24', Math.round(buy21 * (24/21)));
-                updateElement('sell-24', Math.round(sell21 * (24/21)));
-
-                updateElement('buy-18', Math.round(buy21 * (18/21)));
-                updateElement('sell-18', Math.round(sell21 * (18/21)));
-
-                updateElement('buy-14', Math.round(buy21 * (14/21)));
-                updateElement('sell-14', Math.round(sell21 * (14/21)));
-
-                // الجنيه الذهب (8 جرام من عيار 21) - استخدام سعر البيع للجمهور
-                updateElement('gold-coin', Math.round(buy21 * 8));
-
-                // الفجوة السعرية (الفرق بين شراء وبيع الصائغ)
-                const gap = Math.abs(buy21 - sell21);
-                updateElement('price-gap', gap);
-
-                // دولار الصاغة التقريبي
-                const local24 = sell21 * (24/21);
-                const saghaDollar = local24 / (GLOBAL_OUNCE_PRICE / 31.103);
-                updateElement('sagha-dollar', saghaDollar);
-
-                // تحديث وقت نجاح العملية
-                const now = new Date();
-                updateTimeEl.innerText = "آخر تحديث: " + now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                setStatus('live');
 
             } catch (error) {
-                console.error("Fetch error:", error);
-                updateTimeEl.innerText = "فشل التحديث، يرجى المحاولة لاحقاً";
-                // في حالة الخطأ، نوقف تأثير التحميل ونظهر شرطات
-                document.querySelectorAll('.skeleton-text').forEach(el => {
-                    el.classList.remove('skeleton-text');
-                    if(el.getAttribute('data-val') == "0") el.innerText = "--";
-                });
+                console.error(error);
+                setStatus('error');
             } finally {
-                // إيقاف دوران زر التحديث
                 setTimeout(() => btn.classList.remove('spinning'), 500);
             }
         }
 
-        // تشغيل الجلب التلقائي عند فتح الصفحة
-        window.onload = fetchPrices;
+        window.onload = fetchMarketData;
     </script>
 </body>
 </html>
