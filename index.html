@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مصوغات محمد الصعيدي</title>
     <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-
     
     <style>
         :root {
@@ -33,7 +32,7 @@
                 radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03), transparent 25%),
                 radial-gradient(circle at 85% 30%, rgba(0, 230, 118, 0.02), transparent 25%);
             color: var(--text-primary);
-            font-family: 'Cairo', sans-serif; /* الخط الأساسي للتطبيق */
+            font-family: 'Cairo', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -65,14 +64,14 @@
         }
 
         .brand-title {
-            font-family: 'Aref Ruqaa', serif; /* خط الرقعة الفخم */
-            font-size: 1.8rem; /* تكبير الخط ليبرز جمال الرقعة */
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(to right, var(--gold-light), var(--gold-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0;
-            padding-top: 5px; /* لضبط المحاذاة مع الأيقونة */
+            padding-top: 5px;
         }
 
         .system-status {
@@ -465,14 +464,25 @@
             setStatus('loading');
 
             try {
-                const res = await fetch(API_URL);
+                // التعديل 1: إضافة { redirect: "follow" } لدعم إعادة توجيه جوجل
+                const res = await fetch(API_URL, {
+                    method: 'GET',
+                    redirect: 'follow' 
+                });
+                
                 if (!res.ok) throw new Error('Network Issue');
                 const data = await res.json();
 
-                const buy21 = parseFloat(data["شراء 21"]);
-                const sell21 = parseFloat(data["بيع 21"]);
+                // التعديل 2: التعامل مع البيانات سواء كانت كائن (Object) مباشر أو مصفوفة (Array) بداخلها البيانات
+                const resultData = Array.isArray(data) ? data[0] : data;
 
-                if (isNaN(buy21) || isNaN(sell21)) throw new Error('Data Empty');
+                const buy21 = parseFloat(resultData["شراء 21"]);
+                const sell21 = parseFloat(resultData["بيع 21"]);
+
+                if (isNaN(buy21) || isNaN(sell21)) {
+                    console.log("البيانات المستلمة من جوجل:", data); // تساعدك في فحص الخطأ إذا حدث مجدداً
+                    throw new Error('Data Empty or Invalid Key');
+                }
 
                 // 21k
                 setNode('val-buy-21', buy21);
@@ -496,7 +506,7 @@
                 setStatus('live');
 
             } catch (error) {
-                console.error(error);
+                console.error("تفاصيل الخطأ:", error);
                 setStatus('error');
             } finally {
                 setTimeout(() => btn.classList.remove('spinning'), 500);
