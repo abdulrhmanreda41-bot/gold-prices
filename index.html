@@ -3,113 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسعار الذهب - مصوغات الصعيدي</title>
-    <!-- مكتبة تليجرام الأساسية عشان الموقع يفتح كـ Mini App -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>أسعار الذهب لايف</title>
+    <!-- خط كايرو ليعطي مظهر احترافي للنصوص العربية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0b140e; /* أخضر داكن جداً يميل للأسود */
+            --card-bg: #132418; /* أخضر داكن للبطاقات */
+            --gold: #d4af37; /* لون ذهبي احترافي */
+            --text-white: #ffffff;
+            --red-alert: #ff4d4d;
+            --border-color: #2a4030;
+        }
+
         body {
-            background-color: #121212;
-            color: #d4af37; /* لون دهبي */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
+            margin: 0;
+            padding: 10px;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            justify-content: center;
         }
+
+        /* حاوية التطبيق تناسب شاشة الموبايل */
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* التصميم العام للبطاقات */
         .card {
-            background-color: #1e1e1e;
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
-        h2 { margin: 0 0 10px 0; color: #fff; }
-        .price { font-size: 24px; font-weight: bold; }
-        .buy-sell { display: flex; justify-content: space-around; color: #ccc; }
+
+        /* تأثير لمعة خفيفة للبطاقات */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.5;
+        }
+
+        /* العناوين الذهبية */
+        .gold-title {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* الصف الأول: عيار 21 والفجوة */
+        .row-top {
+            display: flex;
+            gap: 12px;
+        }
+        .card-21 {
+            flex: 2;
+        }
+        .card-gap {
+            flex: 1;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* تنسيق أسعار الشراء والبيع */
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .price-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .price-label {
+            font-size: 0.85rem;
+            color: #a0b0a5;
+        }
+        .price-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .price-value.sell { color: var(--text-white); }
+        .price-value.buy { color: #d4af37; } /* تمييز الشراء بالذهبي */
+
+        /* الصف الثاني: باقي العيارات */
+        .row-karats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        .row-karats .card { padding: 10px; }
+        .row-karats .gold-title { font-size: 0.95rem; margin-bottom: 8px; }
+        .row-karats .price-value { font-size: 1rem; }
+        .row-karats .price-label { font-size: 0.75rem; }
+        
+        .row-karats .price-row {
+            flex-direction: row-reverse; /* بيع يمين وشراء يسار بناء على طلبك بالصورة */
+        }
+
+        /* بطاقة الجنيه الذهب */
+        .card-coin {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        .card-coin .gold-title { margin: 0; }
+
+        /* الصف الأخير: الدولار والأونصة */
+        .row-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .gap-value {
+            color: var(--red-alert);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 5px 0;
+        }
+        .small-text {
+            font-size: 0.75rem;
+            color: var(--gold);
+            cursor: pointer;
+        }
+
+        /* زر التحديث */
+        .refresh-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: transform 0.3s;
+        }
+        .refresh-btn:hover { transform: rotate(180deg); }
+
+        /* شاشة التحميل */
+        #loader {
+            text-align: center;
+            color: var(--gold);
+            font-weight: bold;
+            padding: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- اللوجو أو اسم البراند -->
-    <h1>مصوغات محمد الصعيدي</h1>
+    <div class="app-container">
+        
+        <div id="loader">جاري تحديث الأسعار من الصاغة... ⏳</div>
 
-    <div class="card">
-        <h2>عيار 21</h2>
-        <div class="buy-sell">
-            <div>شراء: <span class="price" id="buy21">جاري التحميل...</span></div>
-            <div>بيع: <span class="price" id="sell21">جاري التحميل...</span></div>
-        </div>
-    </div>
+        <!-- الصف الأول -->
+        <div class="row-top" id="main-content">
+            <!-- الفجوة والدولار -->
+            <div class="card card-gap">
+                <div class="gold-title" style="font-size: 0.9rem;">الفجوة السعرية</div>
+                <div class="gap-value" id="price-gap">--</div>
+                <div class="price-label">دولار الصاغة: <span id="sagha-dollar" style="color: white; font-weight: bold;">--</span></div>
+                <div class="small-text" style="margin-top: 8px;">اضغط للتفاصيل</div>
+            </div>
 
-    <div class="card">
-        <h2>عيار 24</h2>
-        <div class="buy-sell">
-            <div>شراء: <span class="price" id="buy24">-</span></div>
-            <div>بيع: <span class="price" id="sell24">-</span></div>
+            <!-- عيار 21 الرئيسي -->
+            <div class="card card-21">
+                <button class="refresh-btn" onclick="fetchPrices()">↻</button>
+                <div class="gold-title" style="font-size: 1.5rem;">عيار 21</div>
+                <div class="price-row">
+                    <div class="price-block">
+                        <span class="price-value sell" id="sell-21">--</span>
+                        <span class="price-label">بيع</span>
+                    </div>
+                    <div class="price-block">
+                        <span class="price-value buy" id="buy-21">--</span>
+                        <span class="price-label">شراء</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="card">
-        <h2>عيار 18</h2>
-        <div class="buy-sell">
-            <div>شراء: <span class="price" id="buy18">-</span></div>
-            <div>بيع: <span class="price" id="sell18">-</span></div>
-        </div>
-    </div>
+        <!-- الصف الثاني: باقي العيارات -->
+        <div class="row-karats">
+            <!-- عيار 24 -->
+            <div class="card">
+                <div class="gold-title">عيار 24</div>
+                <div class="price-row">
+                    <div class="price-block">
+                        <span class="price-value sell" id="sell-24">--</span>
+                        <span class="price-label">بيع</span>
+                    </div>
+                    <div class="price-block">
+                        <span class="price-value buy" id="buy-24">--</span>
+                        <span class="price-label">شراء</span>
+                    </div>
+                </div>
+            </div>
 
-    <div class="card">
-        <h2>الجنيه الذهب (8 جرام)</h2>
-        <div class="buy-sell">
-            <div>شراء: <span class="price" id="buyCoin">-</span></div>
-            <div>بيع: <span class="price" id="sellCoin">-</span></div>
+            <!-- عيار 18 -->
+            <div class="card">
+                <div class="gold-title">عيار 18</div>
+                <div class="price-row">
+                    <div class="price-block">
+                        <span class="price-value sell" id="sell-18">--</span>
+                        <span class="price-label">بيع</span>
+                    </div>
+                    <div class="price-block">
+                        <span class="price-value buy" id="buy-18">--</span>
+                        <span class="price-label">شراء</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- عيار 14 -->
+            <div class="card">
+                <div class="gold-title">عيار 14</div>
+                <div class="price-row">
+                    <div class="price-block">
+                        <span class="price-value sell" id="sell-14">--</span>
+                        <span class="price-label">بيع</span>
+                    </div>
+                    <div class="price-block">
+                        <span class="price-value buy" id="buy-14">--</span>
+                        <span class="price-label">شراء</span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- بطاقة الجنيه الذهب -->
+        <div class="card card-coin">
+            <div class="gold-title">سعر الجنيه الذهب</div>
+            <div class="price-value sell" style="font-size: 1.4rem;">
+                <span id="gold-coin">--</span> <span style="font-size: 0.9rem; color: #a0b0a5;">جنيه</span>
+            </div>
+        </div>
+
+        <!-- الصف الأخير -->
+        <div class="row-bottom">
+            <div class="card" style="flex-direction: row; justify-content: space-between;">
+                <div class="gold-title" style="margin:0;">الدولار</div>
+                <div class="price-value sell" style="font-size: 1.1rem;" id="usd-egp">48.92</div>
+            </div>
+            <div class="card" style="flex-direction: row; justify-content: space-between;">
+                <div class="gold-title" style="margin:0;">الأونصة</div>
+                <div class="price-value sell" style="font-size: 1.1rem;" id="ounce-usd">2350</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // إخبار تليجرام إن التطبيق جاهز للعرض
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand(); // لفتح التطبيق بكامل الشاشة
-
-        // حط الرابط اللي أخدته من جوجل شيت هنا
+        // !! حط الرابط بتاعك اللي طلعناه من جوجل شيت هنا !!
         const API_URL = "https://script.google.com/macros/s/AKfycbxHEks-97V2ca9y3GroLBkuq6SDXUpENiHyCk88_fhHY16gGYnsBg6Bc0YLfKxYOW8bQw/exec";
 
         async function fetchPrices() {
+            document.getElementById('loader').style.display = 'block';
+            
             try {
-                let response = await fetch(API_URL);
-                let data = await response.json();
+                const response = await fetch(API_URL);
+                const data = await response.json();
                 
-                let b21 = parseFloat(data.buy21);
-                let s21 = parseFloat(data.sell21);
+                // جلب بيانات عيار 21 من الشيت
+                const buy21 = parseFloat(data["شراء 21"]);
+                const sell21 = parseFloat(data["بيع 21"]);
 
-                // العمليات الحسابية
-                let b24 = (b21 / 21) * 24;
-                let s24 = (s21 / 21) * 24;
+                // عرض عيار 21
+                document.getElementById('buy-21').innerText = buy21.toLocaleString('en-US');
+                document.getElementById('sell-21').innerText = sell21.toLocaleString('en-US');
+
+                // الحساب التلقائي لباقي العيارات بناءً على 21 (نفس نظام الصاغة)
+                document.getElementById('buy-24').innerText = Math.round(buy21 * (24/21)).toLocaleString('en-US');
+                document.getElementById('sell-24').innerText = Math.round(sell21 * (24/21)).toLocaleString('en-US');
+
+                document.getElementById('buy-18').innerText = Math.round(buy21 * (18/21)).toLocaleString('en-US');
+                document.getElementById('sell-18').innerText = Math.round(sell21 * (18/21)).toLocaleString('en-US');
+
+                document.getElementById('buy-14').innerText = Math.round(buy21 * (14/21)).toLocaleString('en-US');
+                document.getElementById('sell-14').innerText = Math.round(sell21 * (14/21)).toLocaleString('en-US');
+
+                // حساب الجنيه الذهب (وزن 8 جرام من عيار 21)
+                document.getElementById('gold-coin').innerText = Math.round(sell21 * 8).toLocaleString('en-US');
+
+                // حسابات استرشادية للفجوة (الفرق بين البيع والشراء)
+                document.getElementById('price-gap').innerText = (sell21 - buy21).toFixed(2);
                 
-                let b18 = (b21 / 21) * 18;
-                let s18 = (s21 / 21) * 18;
+                // دولار الصاغة (حسبة تقريبية للواجهة لحين ربطها بـ API الدولار العالمي)
+                const globalOunce = 2350; // سعر افتراضي للأونصة
+                const local24 = sell21 * (24/21);
+                const saghaDollar = local24 / (globalOunce / 31.103);
+                document.getElementById('sagha-dollar').innerText = saghaDollar.toFixed(2);
 
-                let bCoin = b21 * 8;
-                let sCoin = s21 * 8;
-
-                // عرض الأرقام في الموقع بعد تقريبها
-                document.getElementById("buy21").innerText = Math.round(b21);
-                document.getElementById("sell21").innerText = Math.round(s21);
-                
-                document.getElementById("buy24").innerText = Math.round(b24);
-                document.getElementById("sell24").innerText = Math.round(s24);
-                
-                document.getElementById("buy18").innerText = Math.round(b18);
-                document.getElementById("sell18").innerText = Math.round(s18);
-
-                document.getElementById("buyCoin").innerText = Math.round(bCoin);
-                document.getElementById("sellCoin").innerText = Math.round(sCoin);
-
-                
             } catch (error) {
-                document.getElementById("buy21").innerText = "خطأ في التحميل";
+                console.error("Error fetching data: ", error);
+                alert("حدث خطأ في جلب الأسعار، تأكد من الرابط أو اتصالك بالإنترنت.");
+            } finally {
+                document.getElementById('loader').style.display = 'none';
             }
         }
 
-        fetchPrices();
+        // تشغيل الدالة فور فتح الصفحة
+        window.onload = fetchPrices;
     </script>
 </body>
 </html>
-
