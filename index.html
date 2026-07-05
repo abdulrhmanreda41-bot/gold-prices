@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أسعار الذهب | Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <title>مصوغات محمد الصعيدي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -32,7 +32,7 @@
                 radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03), transparent 25%),
                 radial-gradient(circle at 85% 30%, rgba(0, 230, 118, 0.02), transparent 25%);
             color: var(--text-primary);
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', sans-serif; /* الخط الأساسي للتطبيق */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -64,12 +64,14 @@
         }
 
         .brand-title {
-            font-size: 1.3rem;
-            font-weight: 900;
+            font-family: 'Aref Ruqaa', serif; /* خط الرقعة الفخم */
+            font-size: 1.8rem; /* تكبير الخط ليبرز جمال الرقعة */
+            font-weight: 700;
             background: linear-gradient(to right, var(--gold-light), var(--gold-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            letter-spacing: 0;
+            padding-top: 5px; /* لضبط المحاذاة مع الأيقونة */
         }
 
         .system-status {
@@ -329,7 +331,7 @@
         <div class="navbar">
             <div class="brand">
                 <svg viewBox="0 0 24 24" class="gold-icon" style="width: 24px; height: 24px;"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-                <span class="brand-title">مؤشرات الذهب</span>
+                <span class="brand-title">مصوغات محمد الصعيدي</span>
             </div>
             <div class="system-status" id="sys-status">
                 <span class="status-dot" id="status-indicator"></span>
@@ -412,10 +414,10 @@
     </div>
 
     <script>
+        // ضع الرابط الخاص بك بين علامتي التنصيص هنا
         const API_URL = "https://script.google.com/macros/s/AKfycbxHEks-97V2ca9y3GroLBkuq6SDXUpENiHyCk88_fhHY16gGYnsBg6Bc0YLfKxYOW8bQw/exec";
-        const GLOBAL_OUNCE = 2350; // سيتم تغييره لاحقاً إذا ربطته بالشيت
+        const GLOBAL_OUNCE = 2350; 
 
-        // دالة تحديث الواجهة مع تأثيرات الـ Data Flash
         function setNode(id, val, format = true) {
             const el = document.getElementById(id);
             if(!el) return;
@@ -424,12 +426,10 @@
             const newVal = format ? val.toLocaleString('en-US') : val;
             
             if (oldVal !== newVal) {
-                // Flash animation trigger
                 el.classList.remove('data-flash');
                 void el.offsetWidth; 
                 el.classList.add('data-flash');
                 
-                // For main values, keep the currency span
                 if(id === 'val-sell-21' || id === 'val-buy-21' || id === 'val-coin') {
                     el.innerHTML = `${newVal} <span class="currency">ج</span>`;
                 } else {
