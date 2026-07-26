@@ -6,7 +6,6 @@
     <title>مصوغات محمد الصعيدي</title>
     <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-    
     <style>
         :root {
             --bg-base: #020604;
@@ -48,7 +47,6 @@
             gap: 16px;
         }
 
-        /* --- Top Navigation / Header --- */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -96,17 +94,9 @@
             box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
         }
 
-        .status-dot.live {
-            background-color: var(--success-color);
-            animation: pulse-green 2s infinite;
-        }
-        
-        .status-dot.error {
-            background-color: var(--danger-color);
-            animation: pulse-red 2s infinite;
-        }
+        .status-dot.live { background-color: var(--success-color); animation: pulse-green 2s infinite; }
+        .status-dot.error { background-color: var(--danger-color); animation: pulse-red 2s infinite; }
 
-        /* --- Premium Cards --- */
         .premium-card {
             background: var(--glass-bg);
             backdrop-filter: blur(24px);
@@ -119,7 +109,6 @@
             overflow: hidden;
         }
 
-        /* --- Main 21 Karat Card --- */
         .card-21 {
             background: linear-gradient(165deg, rgba(20, 40, 25, 0.8) 0%, rgba(5, 12, 8, 0.9) 100%);
             border: 1px solid rgba(212, 175, 55, 0.25);
@@ -169,12 +158,7 @@
             align-items: center;
         }
 
-        .price-block {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        
+        .price-block { display: flex; flex-direction: column; flex: 1; }
         .price-block.sell-block { align-items: flex-start; }
         .price-block.buy-block { align-items: flex-end; }
 
@@ -200,127 +184,32 @@
         .buy-block .price-val { color: var(--gold-light); text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
         .sell-block .price-val { color: var(--text-primary); }
 
-        .currency {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-            margin-right: 4px;
-        }
+        .currency { font-size: 0.9rem; color: var(--text-secondary); font-weight: 600; margin-right: 4px; }
+        .divider-vertical { width: 1px; height: 50px; background: linear-gradient(to bottom, transparent, var(--glass-border), transparent); }
 
-        .divider-vertical {
-            width: 1px;
-            height: 50px;
-            background: linear-gradient(to bottom, transparent, var(--glass-border), transparent);
-        }
-
-        /* --- Grid for 24, 18, 14 --- */
-        .karat-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .mini-card {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 1px solid var(--glass-highlight);
-        }
-
-        .mini-title {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            width: 100%;
-            text-align: center;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed rgba(255,255,255,0.05);
-        }
-
-        .mini-row {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
+        .karat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .mini-card { padding: 15px; display: flex; flex-direction: column; align-items: center; border-top: 1px solid var(--glass-highlight); }
+        .mini-title { color: var(--text-secondary); font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; width: 100%; text-align: center; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+        .mini-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .mini-row:last-child { margin-bottom: 0; }
-
         .m-label { font-size: 0.75rem; color: var(--text-secondary); }
         .m-val { font-size: 1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
         .m-val.buy { color: var(--gold-primary); }
 
-        /* --- Info Grid (Coin, Gap, etc.) --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .info-card {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            border-left: 2px solid transparent;
-            transition: border-color 0.3s ease;
-        }
-        
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .info-card { padding: 16px; display: flex; flex-direction: column; gap: 8px; border-left: 2px solid transparent; transition: border-color 0.3s ease; }
         .info-card:hover { border-left-color: var(--gold-primary); }
-
-        .info-card.full {
-            grid-column: span 2;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), transparent);
-        }
-
-        .i-head {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: 700;
-        }
-
-        .i-val {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--text-primary);
-        }
-
+        .info-card.full { grid-column: span 2; flex-direction: row; justify-content: space-between; align-items: center; background: linear-gradient(90deg, rgba(212, 175, 55, 0.05), transparent); }
+        .i-head { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 700; }
+        .i-val { font-size: 1.4rem; font-weight: 900; color: var(--text-primary); }
         .gap-alert { color: var(--danger-color); }
         
-        /* --- Animations --- */
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(0, 230, 118, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
-        }
-        
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(255, 61, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); }
-        }
-
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(0, 230, 118, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); } }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(255, 61, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 61, 0, 0); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .data-flash {
-            animation: dataUpdate 0.5s ease-out;
-        }
+        .data-flash { animation: dataUpdate 0.5s ease-out; }
+        @keyframes dataUpdate { 0% { color: var(--success-color); transform: scale(1.05); } 100% { transform: scale(1); } }
         
-        @keyframes dataUpdate {
-            0% { color: var(--success-color); transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* SVG Styles */
         svg { width: 16px; height: 16px; fill: currentColor; }
         .gold-icon { fill: var(--gold-primary); }
     </style>
@@ -328,7 +217,6 @@
 <body>
 
     <div class="dashboard">
-        
         <div class="navbar">
             <div class="brand">
                 <svg viewBox="0 0 24 24" class="gold-icon" style="width: 24px; height: 24px;"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
@@ -398,7 +286,7 @@
                     <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
                     السعر العالمي (أونصة)
                 </div>
-                <div class="i-val" style="color: var(--gold-light);" id="val-ounce">2,350 <span class="currency" style="color: var(--gold-primary);">$</span></div>
+                <div class="i-val" style="color: var(--gold-light);" id="val-ounce">-- <span class="currency" style="color: var(--gold-primary);">$</span></div>
             </div>
 
             <div class="premium-card info-card">
@@ -415,16 +303,15 @@
     </div>
 
     <script>
-        // ضع الرابط الخاص بك بين علامتي التنصيص هنا
-        const API_URL = "https://script.google.com/macros/s/AKfycbyo3C-gdfn-UQu1djCjXEMDh3sYX1EjrJJdb8Otitt4JeOHQj8pIM_TupBF8b_sdQoR1Q/exec";
-        const GLOBAL_OUNCE = 2350; 
+        // ضع الرابط الجديد الخاص بك بعد التعديل الأخير هنا
+        const API_URL = "https://script.google.com/macros/s/AKfycbxHtGoKeY52YermFE5-0RF9oJeZh9sWbuEBqD2hq393VztxtiK1ZZFnj87YIOpNtjNrrg/exec";
 
         function setNode(id, val, format = true) {
             const el = document.getElementById(id);
             if(!el) return;
             
             const oldVal = el.getAttribute('data-v');
-            const newVal = format ? val.toLocaleString('en-US') : val;
+            const newVal = format ? Number(val).toLocaleString('en-US', {maximumFractionDigits: 2}) : val;
             
             if (oldVal !== newVal) {
                 el.classList.remove('data-flash');
@@ -433,6 +320,8 @@
                 
                 if(id === 'val-sell-21' || id === 'val-buy-21' || id === 'val-coin') {
                     el.innerHTML = `${newVal} <span class="currency">ج</span>`;
+                } else if (id === 'val-ounce') {
+                    el.innerHTML = `${newVal} <span class="currency" style="color: var(--gold-primary);">$</span>`;
                 } else {
                     el.innerText = newVal;
                 }
@@ -465,7 +354,6 @@
             setStatus('loading');
 
             try {
-                // التعديل 1: إضافة { redirect: "follow" } لدعم إعادة توجيه جوجل
                 const res = await fetch(API_URL, {
                     method: 'GET',
                     redirect: 'follow' 
@@ -474,22 +362,31 @@
                 if (!res.ok) throw new Error('Network Issue');
                 const data = await res.json();
 
-                // التعديل 2: التعامل مع البيانات سواء كانت كائن (Object) مباشر أو مصفوفة (Array) بداخلها البيانات
                 const resultData = Array.isArray(data) ? data[0] : data;
 
                 const buy21 = parseFloat(resultData["شراء 21"]);
                 const sell21 = parseFloat(resultData["بيع 21"]);
 
                 if (isNaN(buy21) || isNaN(sell21)) {
-                    console.log("البيانات المستلمة من جوجل:", data); // تساعدك في فحص الخطأ إذا حدث مجدداً
+                    console.log("البيانات المستلمة من جوجل:", data);
                     throw new Error('Data Empty or Invalid Key');
                 }
 
-                // 21k
+                // سحب البيانات الجديدة من الشيت مع إضافة حماية ضد الأخطاء (Fallbacks)
+                let globalOunce = parseFloat(resultData["سعر الأونصة"]);
+                let gap = parseFloat(resultData["الفجوة السعرية"]);
+                let dollar = parseFloat(resultData["دولار الصاغة"]);
+
+                // في حالة أن الخلايا فارغة في الشيت، سيتم تعويضها بقيم دقيقة لعدم توقف الموقع
+                if (isNaN(globalOunce)) globalOunce = 2350; 
+                if (isNaN(gap)) gap = 40; // تثبيت قيمة الفجوة على 40 كقيمة افتراضية دقيقة لو مفيش داتا 
+                if (isNaN(dollar)) dollar = (sell21 * (24/21)) / (globalOunce / 31.103);
+
+                // تسعير عيار 21
                 setNode('val-buy-21', buy21);
                 setNode('val-sell-21', sell21);
 
-                // Calculations
+                // حسابات دقيقة جداً لباقي الأعيرة (نسبة وتناسب من عيار 21)
                 setNode('val-buy-24', Math.round(buy21 * (24/21)));
                 setNode('val-sell-24', Math.round(sell21 * (24/21)));
                 setNode('val-buy-18', Math.round(buy21 * (18/21)));
@@ -497,12 +394,11 @@
                 setNode('val-buy-14', Math.round(buy21 * (14/21)));
                 setNode('val-sell-14', Math.round(sell21 * (14/21)));
                 
-                // Coin & Indicators
-                setNode('val-coin', Math.round(sell21 * 8));
-                setNode('val-gap', (sell21 - buy21).toFixed(2), false);
-
-                const saghaDollar = (sell21 * (24/21)) / (GLOBAL_OUNCE / 31.103);
-                setNode('val-dollar', saghaDollar.toFixed(2), false);
+                // تحديث بيانات المؤشرات المستلمة
+                setNode('val-coin', Math.round(sell21 * 8)); 
+                setNode('val-ounce', globalOunce);
+                setNode('val-gap', gap, false);
+                setNode('val-dollar', dollar.toFixed(2), false);
 
                 setStatus('live');
 
